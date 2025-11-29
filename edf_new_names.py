@@ -71,39 +71,15 @@ def makefilepath(file,year):
 # Path to the CSV file with list of edfs you want to rename
 csv_file_path = 'find_info.csv'
 
-
 # # Read the CSV file into a DataFrame
 df = pd.read_csv(csv_file_path)
 df_list = list(df['Filename'])
-
 
 # Get unique values from the 'path' column, excluding any NaN values
 unique_paths = list(df['Filename'].dropna().unique())
 new_names = []
 year = input("Please enter the year (e.g., 2016): ")
 info = {}
-
-# for index in range(len(unique_paths)):
-#     print(unique_paths[index])
-#     edf_path = makefilepath(unique_paths[index], year)
-#     info[unique_paths[index]] = read_header_edf(edf_path) + [os.path.getsize(edf_path)/(1024*1024)]
-#     # try:
-#     #     info[unique_paths[index]] = os.path.getsize(edf_path)/(1024*1024)
-#     # except Exception as e:
-#     #     print(f"An error occurred: {e}")
-#     # print(read_header_edf(edf_path))
-#     # info[unique_paths[index]] = read_header_edf(edf_path)
-#     # print(info)
-#     # header_list = read_header_edf(edf_path)[1].split(' ')
-#     # date_string = [s for s in header_list if '-' in s][0]
-#     # date_format = '%d-%b-%Y'
-#     # date_object = datetime.datetime.strptime(date_string, date_format)
-#     # european_date = str(date_object.day)+'-'+str(date_object.month)+'-'+str(date_object.year)
-#     # formatted_date = '-'.join([item.zfill(2) for item in european_date.split("-")])
-#     # new_names.append(unique_paths[index].split('(')[0]+formatted_date+'.edf')
-# pd.DataFrame(info.items(), columns = ["file","info"]).to_csv('checkme.csv', index = False) #(info, orient = 'index').to_csv('checkme.csv', index = False)
-# # pd.DataFrame({'original_name':unique_paths, 'new_name':new_names }).to_csv('renaming.csv', index = False)
-
 
 for index in range(len(unique_paths)):x
     print(unique_paths[index])
