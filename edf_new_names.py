@@ -1,3 +1,9 @@
+"""
+@author: Gauri Ganjoo
+@date: 2025-Nov-28
+@description: This script performs creates new file names for edfs based on information in their headers
+"""
+
 import pandas as pd
 from pathlib import Path
 import pyedflib
