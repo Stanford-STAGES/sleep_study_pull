@@ -4,7 +4,6 @@
 @description: This script takes the names saved by the event_export.bat file and guesses the current names. 
 """
 
-
 import csv
 import pandas as pd
 import os
@@ -31,8 +30,7 @@ def extract_columns(df):
             year = parts[5]
             patient_name = ' '.join(parts[6:-1]).strip()
             patient_name_redone = parts[6]
-
-           
+ 
             # Construct the new column values
             staging_name = os.path.join('staging_data', year, file_name.replace('.dt2', '').replace('.dt3', '').replace('\\',"/")).replace("Z:/Research/Gauri/",'')
             redone_name = os.path.join('redone_psgs', 'ResearchClosed', year, patient_name_redone)
@@ -65,6 +63,4 @@ result_df = extract_columns(df)
 # print(result_df)
 
 result_df.to_csv('processed_subdirectories2.csv', index = False)
-
-
 
