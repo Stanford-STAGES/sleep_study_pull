@@ -12,5 +12,11 @@ You want run this script on the files you created that have no videos attached. 
 ## prep_processed_log.py, move_folders.py
 Run prep_processed_log.py to generate a file called "processed_subdirectories2.csv". Then run move_folders.py. It will move some of the directories around based on the locations and file names guessed in "processed_subdirectories2.csv". The purpose is to move some of the sleep studies out of your measurement folder(see event_export.bat) before rerunning event_export.bat because it is not a recursive script and will start over each time you run it. After you have moved the folders from your measurement folder, rerun event_export.bat. 
 
-Repeat until all the event files have been exported. You will need to keep a close eye out for any issues that may occur. 
+Repeat until all the event folders have been exported. You will need to keep a close eye out for any issues that may occur. 
+Once all event folder have been made, use filezilla to transfer them to Stanford Medicine box. After they are on Stanford Medicine box, You will need to rename the edfs and some of the event folders.
+
+# mignot_computer_scripts
+
+## edf_new_names.py
+
 
