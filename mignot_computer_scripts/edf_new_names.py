@@ -1,9 +1,13 @@
 """
 @author: Gauri Ganjoo
 @date: 2025-Nov-28
-@description: This script performs creates new file names for edfs based on information in their headers
-"""
+@description:
+- Reads a CSV (default find_info.csv) with a column named 'Filename'
+- For each unique filename, builds an EDF path, reads header info, and
+  constructs a new name using the date found in the header.
+- Writes renaming.csv with columns: original_name, new_name
 
+"""
 import pandas as pd
 from pathlib import Path
 import pyedflib
@@ -14,6 +18,7 @@ from charset_normalizer import from_bytes as fm
 import os
 
 def decode_str(b):
+    """Decode bytes to string using charset_normalizer."""
     return str(fm(b).best()).strip()
 
 def read_header_edf(edf_filename):
@@ -29,7 +34,7 @@ def read_header_edf(edf_filename):
         h['local_subject_id'] = decode_str(f.read(80))
         h['local_recording_id'] = decode_str(f.read(80))
 
-        # # parse timestamp
+        # parse timestamp
         (day, month, year) = [int(x) for x in re.findall('(\d+)', str(f.read(8)))] 
         (hour, minute, sec)= [int(x) for x in re.findall('(\d+)', str(f.read(8)))]
         h['date_time'] = str(datetime.datetime(year + 2000, month, day, hour, minute, sec))
@@ -72,8 +77,6 @@ def read_raw_edf(edf_filename):
 def makefilepath(file,year):
     return '/Users/{sunnet_id}/Library/CloudStorage/Box-Box/rest of path to files that will be renamed/'+str(year)+'/'+file
 
-
-
 # Path to the CSV file with list of edfs you want to rename
 csv_file_path = 'find_info.csv'
 
@@ -85,24 +88,24 @@ df_list = list(df['Filename'])
 unique_paths = list(df['Filename'].dropna().unique())
 new_names = []
 year = input("Please enter the year (e.g., 2016): ")
-info = {}
 
 for index in range(len(unique_paths)):x
     print(unique_paths[index])
+    # Read the header and extract the date from the local_recording_id/date fields
     edf_path = makefilepath(unique_paths[index], year)
-    # print(read_header_edf(edf_path))
     header_list = read_header_edf(edf_path)[1].split(' ')
     date_string = [s for s in header_list if '-' in s][0]
     date_format = '%d-%b-%Y'
     date_object = datetime.datetime.strptime(date_string, date_format)
+
+    # European date and two-digit components
     european_date = str(date_object.day)+'-'+str(date_object.month)+'-'+str(date_object.year)
     # print(european_date)
     formatted_date = '-'.join([item.zfill(2) for item in european_date.split("-")])
     # print(formatted_date)
+    
+    # Build the new file name by preserving the part before the first '('
     new_names.append(unique_paths[index].split('(')[0]+formatted_date+'.edf')
 pd.DataFrame({'original_name':unique_paths, 'new_name':new_names }).to_csv('renaming.csv', index = False)
-
-
-
 
 
