@@ -15,7 +15,7 @@ Run prep_processed_log.py to generate a file called "processed_subdirectories2.c
 Repeat until all the event folders have been exported. You will need to keep a close eye out for any issues that may occur. 
 Once all event folder have been made, use filezilla to transfer them to Stanford Medicine box. After they are on Stanford Medicine box, You will need to rename the edfs and some of the event folders.
 
-# Box_Drive_scripts
+# BoxDrive_scripts
 These scripts should be run on a computer with box drive. Also watch the storage capacity if running on a PC. 
 ## edf_new_names.py
 Before running, create a file "find_info.csv" with a column "Filename" that lists the edfs you want to rename. Note that they must all be in the same "year" folder on box. When you run this script, it will ask you for the year you are pulling from on box. The script will create a file called 'renaming.csv' with two columns [original_name, new_name]. 
